@@ -1055,7 +1055,8 @@ void File::sync_map(FileDesc fd, void* addr, size_t size)
 bool File::exists(const std::string& path)
 {
 #ifdef _WIN32
-    if (_access(path.c_str(), 0) == 0)
+    std::wstring w_path(path.begin(), path.end());
+    if (_waccess(w_path.c_str(), 0) == 0)
         return true;
 #else // POSIX
     if (::access(path.c_str(), F_OK) == 0)
@@ -1108,7 +1109,8 @@ void File::remove(const std::string& path)
 bool File::try_remove(const std::string& path)
 {
 #ifdef _WIN32
-    if (_unlink(path.c_str()) == 0)
+    std::wstring w_path(path.begin(), path.end());
+    if (_wunlink(w_path.c_str()) == 0)
         return true;
 #else // POSIX
     if (::unlink(path.c_str()) == 0)
