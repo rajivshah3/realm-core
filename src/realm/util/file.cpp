@@ -124,14 +124,9 @@ namespace util {
 bool try_make_dir(const std::string& path)
 {
 #ifdef _WIN32
-    int w_path_size = MultiByteToWideChar(CP_UTF8, 0, path.c_str(), -1, NULL, 0);
-    wchar_t* w_path = new wchar_t[w_path_size];
-    MultiByteToWideChar(CP_UTF8, 0, path.c_str(), -1, w_path, w_path_size);
-    if (CreateDirectoryW(w_path, NULL) != 0) {
-        delete w_path;
+    std::wstring w_path(path.begin(), path.end());
+    if (CreateDirectoryW(w_path.c_str(), NULL) != 0)
         return true;
-    }
-    delete w_path;
     DWORD dw_err = GetLastError();
     int err = (int)dw_err;
     std::string msg;
@@ -177,14 +172,9 @@ void remove_dir(const std::string& path)
 bool try_remove_dir(const std::string& path)
 {
 #ifdef _WIN32
-    int w_path_size = MultiByteToWideChar(CP_UTF8, 0, path.c_str(), -1, NULL, 0);
-    wchar_t* w_path = new wchar_t[w_path_size];
-    MultiByteToWideChar(CP_UTF8, 0, path.c_str(), -1, w_path, w_path_size);
-    if (RemoveDirectoryW(w_path) != 0) {
-        delete w_path;
+    std::wstring w_path(path.begin(), path.end());
+    if (RemoveDirectoryW(w_path.c_str()) != 0)
         return true;
-    }
-    delete w_path;
     DWORD dw_err = GetLastError();
     int err = (int)dw_err;
     std::string msg;
