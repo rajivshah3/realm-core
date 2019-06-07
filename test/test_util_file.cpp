@@ -116,7 +116,7 @@ TEST(Utils_File_dir_unicode)
 {
   // Test make_dir and remove_dir with paths that include special characters
   // This would previously fail on Windows
-  std::string dir_name = File::resolve("temporäreDatei", test_util::get_test_path_prefix());
+  std::string dir_name = File::resolve("temporärerOrdner", test_util::get_test_path_prefix());
 
   // Create directory
   bool dir_exists = File::is_dir(dir_name);
