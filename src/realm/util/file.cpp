@@ -1078,7 +1078,8 @@ bool File::is_dir(const std::string& path)
     }
     throw std::system_error(err, std::system_category(), "stat() failed");
 #elif REALM_HAVE_STD_FILESYSTEM
-    return std::filesystem::is_directory(path);
+    std::wstring w_path(path.begin(), path.end());
+    return std::filesystem::is_directory(w_path);
 #else
     static_cast<void>(path);
     throw util::runtime_error("Not yet supported");
